@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeckTester : MonoBehaviour
 {
     [SerializeField] List<AbilityCardData> _abilityDeckConfig = new List<AbilityCardData>();
+
     [SerializeField] AbilityCardView _abilityCardView = null;
     Deck<AbilityCard> _abilityDeck = new Deck<AbilityCard>();
     Deck<AbilityCard> _abilityDiscard = new Deck<AbilityCard>();
@@ -14,23 +15,6 @@ public class DeckTester : MonoBehaviour
     private void Start()
     {
         SetupAbilityDeck();
-        /*
-        // create some cards for the deck
-        Debug.Log("Creatin Cards...");
-        Card cardA = new Card("Sword");
-        _testDeck.Add(cardA);
-        Card cardB = new Card("Fireball");
-        _testDeck.Add(cardB);
-        Card cardC = new Card("Elixir");
-        _testDeck.Add(cardC);
-       
-        // Draw a new card from the deck
-        Card testCard = _testDeck.Draw(DeckPosition.Top);
-        Debug.Log("Drew card: " + testCard);
-
-        // play the new card
-        testCard.Play();
-         */
     }
 
     private void Update()
