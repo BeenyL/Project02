@@ -162,13 +162,12 @@ public class Deck <T> where T : Card
         // start at the top, randomly swapping cards as we move out way down
         for (int currentIndex = Count - 1; currentIndex > 0; --currentIndex)
         {
-            // choose a random card, but not ones we have already placed
             int randomIndex = UnityEngine.Random.Range(0, currentIndex + 1);
             T randomCard = _cards[currentIndex];
-            // random card swaps places with our current index
-            _cards[randomIndex] = _cards[currentIndex];
-            _cards[currentIndex] = randomCard;
-            // move downwards to next card index
+            _cards[currentIndex] = _cards[randomIndex];
+            _cards[randomIndex] = randomCard;
+
         }
+
     }
 }
