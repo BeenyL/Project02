@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] int health = 300;
     public int _health => health;
-    public void TakeDamage(int value)
+    public virtual void TakeDamage(int value)
     {
         health -= value;
     }

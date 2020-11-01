@@ -8,16 +8,20 @@ public class CardSelector : MonoBehaviour
 {
     [SerializeField] Transform SelectedCardSlotPos;
     [SerializeField] Button cancel;
+    [SerializeField] Button confirm;
+    [SerializeField] PlayerHUD playerhud;
     // normal raycasts do not work on UI elements, they require a special kind
     GraphicRaycaster _raycaster;
     PointerEventData _pointerEventData;
     EventSystem _eventSystem;
     GameManager gameManger;
+    PlayerProperty playerprop;
     private void Awake()
     {
         _raycaster = GetComponent<GraphicRaycaster>();
         _eventSystem = GetComponent<EventSystem>();
         gameManger = FindObjectOfType<GameManager>();
+        playerprop = FindObjectOfType<PlayerProperty>();
     }
 
     void Update()
@@ -46,7 +50,8 @@ public class CardSelector : MonoBehaviour
                 break;
             }
             if(choseCard == true) {
-                cancel.gameObject.SetActive(true); 
+                cancel.gameObject.SetActive(true);
+                confirm.gameObject.SetActive(true);
             }
         }
     }
@@ -55,6 +60,27 @@ public class CardSelector : MonoBehaviour
         PlayerHandSlot playerhandslot = SelectedCardSlotPos.gameObject.GetComponent<PlayerHandSlot>();
         SelectedCardSlotPos.position = gameManger.cardPosTransforms[playerhandslot._slot].position;
         cancel.gameObject.SetActive(false);
+        confirm.gameObject.SetActive(false);
+    }
+
+    public void playCardEffect()
+    {
+        PlayerHandSlot playerhandslot = SelectedCardSlotPos.gameObject.GetComponent<PlayerHandSlot>();
+        if (playerprop._mana >= gameManger.Hand.GetCard(playerhandslot._slot).Cost)
+        {
+            playerprop._mana -= gameManger.Hand.GetCard(playerhandslot._slot).Cost;
+            gameManger.Hand.GetCard(playerhandslot._slot).Play();
+        }
+        else
+        {
+            Debug.Log("player mana " + playerprop._mana);
+            Debug.Log("card mana: " + gameManger.Hand.GetCard(playerhandslot._slot).Cost);
+            Debug.Log("card name: " + gameManger.Hand.GetCard(playerhandslot._slot).Name);
+            Debug.Log("fail to play");
+        }
+        playerhud.updateManaBar();
+        cancel.gameObject.SetActive(false);
+        confirm.gameObject.SetActive(false);
     }
 
 }

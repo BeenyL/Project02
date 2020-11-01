@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CardPlayEffect : ScriptableObject
+public abstract class CardEffect : ScriptableObject
 {
-    public abstract void Activate(ITargetable target);
+    public abstract void Activate();
 }

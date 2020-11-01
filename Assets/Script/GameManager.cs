@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<AbilityCardData> _deckConfig;
     public List<AbilityCardData> DeckConfig => _deckConfig;
 
+    Deck<Card> _hand = new Deck<Card>();
+    public Deck<Card> Hand => _hand;
+
     Deck<Card> _deck = new Deck<Card>();
     public Deck<Card> Deck => _deck;
 }

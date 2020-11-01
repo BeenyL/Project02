@@ -49,6 +49,7 @@ public class SetupBattleGameState : BattleState
             AbilityCardView abilityCardView = gameManager.PhysicalDeck[i].GetComponent<AbilityCardView>();
             AbilityCard abilityCard = (AbilityCard)gameManager.Deck.GetCard(i);
             abilityCardView.Display(abilityCard);
+            Debug.Log(gameManager.Deck.GetCard(i));
         }
     }
 
@@ -65,11 +66,14 @@ public class SetupBattleGameState : BattleState
             // for front end deck
                 gameManager.PhysicalDeck[gameManager.PhysicalDeck.Length - i - 1].transform.position = gameManager.cardPosTransforms[i].position;
 
+                gameManager.PhysicalDeck[gameManager.PhysicalDeck.Length - i - 1].transform.parent = gameManager.cardPosTransforms[i];
+
                 gameManager.PhysicalDeck[gameManager.PhysicalDeck.Length - i - 1].AddComponent<PlayerHandSlot>();
 
                 gameManager.PhysicalDeck[gameManager.PhysicalDeck.Length - i - 1].GetComponent<PlayerHandSlot>()._slot = i;
             // for back end deck
                 Card card = gameManager.Deck.Draw();
+                gameManager.Hand.Add(card);
                 Debug.Log(card.Name);
             }
     }

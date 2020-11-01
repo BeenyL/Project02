@@ -14,6 +14,6 @@ public class AbilityCardData : ScriptableObject
     [SerializeField] Sprite _graphic = null;
     public Sprite Graphic => _graphic;
 
-    [SerializeField] CardPlayEffect _playEffect = null;
-    public CardPlayEffect playEffect => _playEffect;
+    [SerializeField] CardEffect _playEffect = null;
+    public CardEffect playEffect => _playEffect;
 }

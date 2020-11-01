@@ -8,15 +8,27 @@ public class PlayerProperty : Health
     int maxMana = 10;
     int currentMana;
     int mana;
+
+    int maxArmor = 100;
+    int currentArmor;
+    int armor;
+
+    int attackboostVal;
+
     int currentHealth;
-    public int _mana => mana;
+    public int _mana { get => mana; set => mana = value; }
+    public int _armor { get => armor; set => armor = value; }
+
 
     private void Awake()
     {
-        playerhud.setMaxHealth(300);
-        playerhud.setMaxMana(10);
+        playerhud.setMaxHealth(_health);
+        playerhud.setMaxMana(maxMana);
+        playerhud.setMaxArmor(maxArmor);
         playerhud.updateHealthBar();
         playerhud.updateManaBar();
+        playerhud.updateArmorBar();
+        currentArmor = 0;
         currentHealth = _health;
         currentMana = mana;
     }
@@ -41,7 +53,12 @@ public class PlayerProperty : Health
 
     void DamageCheck()
     {
-        if(_health < currentHealth || _health > currentHealth)
+        if(armor > 0)
+        {
+
+        }
+
+        if(_health < currentHealth || _health > currentHealth && armor == 0)
         {
             playerhud.updateHealthBar();
             currentHealth = _health;
@@ -50,21 +67,50 @@ public class PlayerProperty : Health
 
     public void CanHeal(int value)
     {
-        if(currentHealth >= _health)
-        {
-
-        }
         Heal(value);
+        if (currentHealth >= _health)
+        {
+            currentHealth = _health;
+        }
     }
 
     public void ManaRefresh()
     {
-        if(currentMana >= maxMana)
+        currentMana++;
+        if (currentMana >= maxMana)
         {
             currentMana = maxMana;
         }
-        currentMana++;
         mana = currentMana;
         playerhud.updateManaBar();
+    }
+
+    public override void TakeDamage(int value)
+    {
+        int leftoverDmg;
+        if(armor > 0)
+        {
+            value -= armor;
+            if(value < 0)
+            {
+                leftoverDmg = value;
+                armor = Mathf.Abs(leftoverDmg);
+            }
+            else
+            {
+                armor = 0;
+                currentHealth -= value;
+            }
+
+        }
+    }
+
+    protected override void Die()
+    {
+        if(currentHealth <= 0)
+        {
+            //set gameover state
+        }
+
     }
 }

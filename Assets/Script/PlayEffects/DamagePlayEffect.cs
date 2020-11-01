@@ -3,24 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewDamagePlayeEffect", menuName = "CardData/PlayEffects/Damage")]
-public class DamagePlayEffect : CardPlayEffect
+public class DamagePlayEffect : CardEffect
 {
     [SerializeField] int _damageAmount = 1;
+    EnemySelector enemyselecter;
+    Enemy enemy;
 
-    public override void Activate(ITargetable target)
+    public override void Activate()
     {
-        // test to see if the target is damagable
-        IDamageable objectToDamage = target as IDamageable;
-        // if it is, apply damage
-        if(objectToDamage != null)
-        {
-            objectToDamage.TakeDamage(_damageAmount);
-            Debug.Log("add damage to the target");
-
-        }
-        else
-        {
-            Debug.Log("target is not damageable. . .");
-        }
+        enemyselecter = FindObjectOfType<EnemySelector>();
+        enemy = enemyselecter._enemy;
+        enemy.TakeDamage(_damageAmount);
+        Debug.Log("damagePlayEffect played");
     }
 }
