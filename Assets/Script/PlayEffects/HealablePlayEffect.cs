@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewDamagePlayeEffect", menuName = "CardData/PlayEffects/Heal")]
+[CreateAssetMenu(fileName = "_PlayeEffect", menuName = "CardData/PlayEffects/Heal")]
 public class HealablePlayEffect : CardEffect
 {
     [SerializeField] int _healAmount = 1;
+    PlayerProperty playerprop;
 
     public override void Activate()
     {
-        Debug.Log("HealablePlayEffect played");
+        playerprop = FindObjectOfType<PlayerProperty>();
+        playerprop.Heal(_healAmount);
     }
 }

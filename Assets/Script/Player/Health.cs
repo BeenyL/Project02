@@ -5,7 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] int health = 300;
-    public int _health => health;
+    public int _health { get => health; set => health = value; }
     public virtual void TakeDamage(int value)
     {
         health -= value;

@@ -18,7 +18,7 @@ public class PlayerProperty : Health
     int currentHealth;
     public int _mana { get => mana; set => mana = value; }
     public int _armor { get => armor; set => armor = value; }
-
+    public int _attackboostVal { get => attackboostVal; set => attackboostVal = value; }
 
     private void Awake()
     {
@@ -35,11 +35,11 @@ public class PlayerProperty : Health
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             TakeDamage(10);
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             Heal(5);
         }
@@ -48,21 +48,11 @@ public class PlayerProperty : Health
             mana++;
             playerhud.updateManaBar();
         }
-        DamageCheck();
-    }
-
-    void DamageCheck()
-    {
-        if(armor > 0)
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-
+            addArmor(5);
         }
 
-        if(_health < currentHealth || _health > currentHealth && armor == 0)
-        {
-            playerhud.updateHealthBar();
-            currentHealth = _health;
-        }
     }
 
     public void CanHeal(int value)
@@ -85,24 +75,44 @@ public class PlayerProperty : Health
         playerhud.updateManaBar();
     }
 
+    public void addArmor(int value)
+    {
+        armor += value;
+        playerhud.updateArmorBar();
+    }
+
+    public void addMana(int value)
+    {
+        mana += value;
+        playerhud.updateArmorBar();
+    }
+
     public override void TakeDamage(int value)
     {
-        int leftoverDmg;
         if(armor > 0)
         {
             value -= armor;
             if(value < 0)
             {
-                leftoverDmg = value;
-                armor = Mathf.Abs(leftoverDmg);
+                armor = Mathf.Abs(value);
             }
-            else
+            if(value == 0)
             {
                 armor = 0;
-                currentHealth -= value;
             }
-
+            if(value > 0)
+            {
+                armor = 0;
+                _health -= value;
+            }
         }
+        else
+        {
+            _health -= value;
+        }
+
+        playerhud.updateHealthBar();
+        playerhud.updateArmorBar();
     }
 
     protected override void Die()

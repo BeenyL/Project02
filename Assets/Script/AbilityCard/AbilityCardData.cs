@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewAbilityCard", menuName = "CardData/AbilityCard")]
+public enum Type { Item, Attack, Spell }
+[CreateAssetMenu(fileName = "_AbilityCard", menuName = "CardData/AbilityCard")]
 public class AbilityCardData : ScriptableObject
 {
     [SerializeField] string _name = ". . .";
@@ -16,4 +17,7 @@ public class AbilityCardData : ScriptableObject
 
     [SerializeField] CardEffect _playEffect = null;
     public CardEffect playEffect => _playEffect;
+
+    [SerializeField] Type _cardType;
+    public Type CardType => _cardType;
 }

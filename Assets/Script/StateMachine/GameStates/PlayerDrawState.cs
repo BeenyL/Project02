@@ -6,10 +6,11 @@ public class PlayerDrawState : BattleState
 {
     bool _activated = false;
 
-    GameManager _GameManager;
+    GameManager gameManager;
 
     public override void Enter()
     {
+        gameManager = FindObjectOfType<GameManager>();
         print("Enter: Player Draw State");
         DrawCard();
         _activated = true;
@@ -31,6 +32,16 @@ public class PlayerDrawState : BattleState
 
     private void DrawCard()
     {
-        // draw card
+            // for front end deck
+            gameManager.PhysicalDeck[gameManager.PhysicalDeck.Length - 1].transform.position = gameManager.cardPosTransforms[1].position;
+
+            gameManager.PhysicalDeck[gameManager.PhysicalDeck.Length - 1].transform.parent = gameManager.cardPosTransforms[1];
+
+            gameManager.PhysicalDeck[gameManager.PhysicalDeck.Length - 1].AddComponent<PlayerHandSlot>();
+
+            gameManager.PhysicalDeck[gameManager.PhysicalDeck.Length - 1].GetComponent<PlayerHandSlot>()._slot = 1;
+            // for back end deck
+            Card card = gameManager.Deck.Draw();
+            gameManager.Hand.Add(card);
     }
 }

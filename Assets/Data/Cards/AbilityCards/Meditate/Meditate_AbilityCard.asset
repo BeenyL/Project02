@@ -17,3 +17,4 @@ MonoBehaviour:
   _graphic: {fileID: 2185167392590505104, guid: f90ab45a1c515d5478fb7658f467b188,
     type: 3}
   _playEffect: {fileID: 11400000, guid: 43e6b93b7f2b43545b6804b828119080, type: 2}
+  _cardType: 2

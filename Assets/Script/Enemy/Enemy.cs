@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : Health
 {
     [SerializeField] EnemyHUD enemyhud;
+    [SerializeField] PlayerProperty playerprop;
     int currenthealth;
     public int _currenthealth => currenthealth;
     private void Awake()
@@ -21,16 +22,26 @@ public class Enemy : Health
             TakeDamage(5);
             enemyhud.updateEnemyHealth();
         }
-        CheckHealth();
     }
 
-    void CheckHealth()
+    public void CheckHealth()
     {
         if(_health < currenthealth)
         {
             enemyhud.updateEnemyHealth();
             currenthealth = _health;
         }
+    }
+
+    public void AttackPattern()
+    {
+        int probability = Random.Range(1, 10);
+
+        if(probability > 5)
+        {
+            playerprop.TakeDamage(5);
+        }
+
     }
 
 }

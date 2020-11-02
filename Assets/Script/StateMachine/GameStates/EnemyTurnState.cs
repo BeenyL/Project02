@@ -8,6 +8,7 @@ public class EnemyTurnState : BattleState
     [SerializeField] float _enemyTurnDuration = 3;
     [SerializeField] Image enemyturnindicator;
     [SerializeField] Image stopPlayerAction;
+    [SerializeField]Enemy[] enemy;
 
     public override void Enter()
     {
@@ -15,6 +16,7 @@ public class EnemyTurnState : BattleState
         stopPlayerAction.gameObject.SetActive(true);
         print("Enter: Enemy Turn");
         StartCoroutine(EnemyTurn());
+        StartCoroutine(TakeTurn());
     }
 
     public override void Tick()
@@ -25,8 +27,17 @@ public class EnemyTurnState : BattleState
     IEnumerator EnemyTurn()
     {
         yield return new WaitForSeconds(_enemyTurnDuration);
-
         StateMachine.ChangeState<PlayerDrawState>();
+    }
+
+    IEnumerator TakeTurn()
+    {
+        yield return new WaitForSeconds(1);
+        for (int i = 0; i < 3; i++)
+        {
+            enemy[i].AttackPattern();
+        }
+        
     }
 
     public override void Exit()

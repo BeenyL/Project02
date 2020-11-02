@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Bolster_AbilityCard
   m_EditorClassIdentifier: 
   _name: Bolster
-  _cost: 4
+  _cost: 2
   _graphic: {fileID: 7456935766170266316, guid: f90ab45a1c515d5478fb7658f467b188,
     type: 3}
   _playEffect: {fileID: 11400000, guid: 49bc5081a79fd6e4fa53c4e14bcbf046, type: 2}
+  _cardType: 2

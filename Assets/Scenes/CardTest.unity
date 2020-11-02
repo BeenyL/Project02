@@ -219,7 +219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17690058}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -60, y: -480, z: 0}
+  m_LocalPosition: {x: -60, y: -450, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 747420615}
@@ -401,6 +401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   enemyhud: {fileID: 41497838}
+  playerprop: {fileID: 1423356989}
 --- !u!114 &41497840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1592,7 +1593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274712881}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -310, y: -480, z: 0}
+  m_LocalPosition: {x: -310, y: -450, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 747420615}
@@ -1824,6 +1825,10 @@ MonoBehaviour:
   _enemyTurnDuration: 3
   enemyturnindicator: {fileID: 357214536}
   stopPlayerAction: {fileID: 1840995410}
+  enemy:
+  - {fileID: 41497839}
+  - {fileID: 1610977515}
+  - {fileID: 1935627830}
 --- !u!114 &389212457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2345,7 +2350,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473688979}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -560, y: -480, z: 0}
+  m_LocalPosition: {x: -560, y: -450, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 747420615}
@@ -2450,7 +2455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 536324172}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -810, y: -480, z: 0}
+  m_LocalPosition: {x: -810, y: -450, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 747420615}
@@ -4171,7 +4176,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932339325}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 190, y: -480, z: 0}
+  m_LocalPosition: {x: 190, y: -450, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 747420615}
@@ -6022,6 +6027,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   enemyhud: {fileID: 1610977514}
+  playerprop: {fileID: 1423356989}
 --- !u!1 &1619586341
 GameObject:
   m_ObjectHideFlags: 0
@@ -7588,6 +7594,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   enemyhud: {fileID: 1935627829}
+  playerprop: {fileID: 1423356989}
 --- !u!1 &1986661136
 GameObject:
   m_ObjectHideFlags: 0
