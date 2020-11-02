@@ -8,7 +8,8 @@ public class EnemyTurnState : BattleState
     [SerializeField] float _enemyTurnDuration = 3;
     [SerializeField] Image enemyturnindicator;
     [SerializeField] Image stopPlayerAction;
-    [SerializeField]Enemy[] enemy;
+    [SerializeField] Enemy[] enemy;
+    [SerializeField] EnemyHUD[] enemyhud;
 
     public override void Enter()
     {
@@ -44,6 +45,10 @@ public class EnemyTurnState : BattleState
     {
         enemyturnindicator.enabled = false;
         stopPlayerAction.gameObject.SetActive(false);
+        for(int i = 0; i < 3; i++)
+        {
+            enemyhud[i].setEnemyText(" ");
+        }
         print("Exit: Enemy Turn");
     }
 }

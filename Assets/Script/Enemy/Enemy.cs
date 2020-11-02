@@ -41,6 +41,10 @@ public class Enemy : Health
         {
             playerprop.TakeDamage(5);
         }
+        else
+        {
+            enemyhud.setEnemyText("...Grrahhhh...");
+        }
 
     }
 

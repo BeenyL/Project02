@@ -7,6 +7,7 @@ public class AttackBoostPlayEffect : CardEffect
 {
     [SerializeField] int _attackBoostValue;
     PlayerProperty playerprop;
+
     public override void Activate()
     {
         playerprop = FindObjectOfType<PlayerProperty>();

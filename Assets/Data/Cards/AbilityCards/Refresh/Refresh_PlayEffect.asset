@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50bdacbfb40000b43b7407f109412622, type: 3}
-  m_Name: Health_Potion_PlayeEffect
+  m_Script: {fileID: 11500000, guid: 3c65ac6c9d3e89f408aea3fc3ee0b1c8, type: 3}
+  m_Name: Refresh_PlayEffect
   m_EditorClassIdentifier: 
-  Effect: HP
-  _healAmount: 5
+  Effect: MP
+  _manaAmount: 1

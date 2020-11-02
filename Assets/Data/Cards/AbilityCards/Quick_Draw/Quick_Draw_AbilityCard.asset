@@ -18,3 +18,5 @@ MonoBehaviour:
     type: 3}
   _playEffect: {fileID: 11400000, guid: 1ee6635b0240c4f43ac49cd09b3d57fc, type: 2}
   _cardType: 2
+  _effect: 1
+  effect_value: 7

@@ -16,5 +16,7 @@ MonoBehaviour:
   _cost: 0
   _graphic: {fileID: 6789135733701371458, guid: f90ab45a1c515d5478fb7658f467b188,
     type: 3}
-  _playEffect: {fileID: 0}
+  _playEffect: {fileID: 11400000, guid: 995af20e6e065d14bbfe55367a76576b, type: 2}
   _cardType: 2
+  _effect: 2
+  effect_value: 1

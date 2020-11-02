@@ -7,6 +7,7 @@ public class EnemyHUD : MonoBehaviour
 {
     [SerializeField] Slider enemyHealth;
     [SerializeField] Text enemyHealthText;
+    [SerializeField] Text enemyText;
     [SerializeField] Enemy enemy;
 
     public void updateEnemyHealth()
@@ -18,5 +19,8 @@ public class EnemyHUD : MonoBehaviour
     {
         enemyHealth.maxValue = value;
     }
-
+    public void setEnemyText(string dialog)
+    {
+        enemyText.text = dialog;
+    }
 }

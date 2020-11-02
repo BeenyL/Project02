@@ -7,6 +7,7 @@ public class ManaPlayEffect : CardEffect
 {
     [SerializeField] int _manaAmount = 1;
     PlayerProperty playerprop;
+
     public override void Activate()
     {
         playerprop = FindObjectOfType<PlayerProperty>();
