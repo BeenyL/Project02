@@ -89,6 +89,16 @@ public class Deck <T> where T : Card
         }
     }
 
+    public void AddtoHand(T card, int pos)
+    {
+        _cards[pos] = card;
+    }
+
+    public void DeletefromHand(int pos)
+    {
+        _cards[pos] = null;
+    }
+
     // Draws next item (top of deck). default to top
     public T Draw(DeckPosition position = DeckPosition.Top)
     {

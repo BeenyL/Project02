@@ -12,6 +12,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] Text HealthText;
     [SerializeField] Text ManaText;
     [SerializeField] Text ArmorText;
+    [SerializeField] Text AttackText;
 
     [SerializeField] PlayerProperty playerprop;
     public void updateHealthBar()
@@ -30,6 +31,11 @@ public class PlayerHUD : MonoBehaviour
     {
         ArmorBar.value = playerprop._armor;
         ArmorText.text = "Armor: " + playerprop._armor.ToString();
+    }
+
+    public void updateAttack()
+    {
+        AttackText.text = "Atk: " + playerprop._attackboostVal.ToString();
     }
 
     public void setMaxHealth(int value)

@@ -11,7 +11,7 @@ public class Health : MonoBehaviour
         health -= value;
     }
 
-    public void Heal(int value)
+    public virtual void Heal(int value)
     {
 
         health += value;
@@ -19,7 +19,7 @@ public class Health : MonoBehaviour
 
     protected virtual void Die()
     {
-
+        gameObject.SetActive(false);
     }
 
 }

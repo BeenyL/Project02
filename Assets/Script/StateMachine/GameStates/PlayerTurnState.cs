@@ -9,6 +9,10 @@ public class PlayerTurnState : BattleState
     [SerializeField] Image playerturnindicator;
     public override void Enter()
     {
+        if(playerprop._turn > 0)
+        {
+            playerprop._turn--;
+        }
         playerturnindicator.enabled = true;
         print("Enter: Player Turn");
         playerprop.ManaRefresh();

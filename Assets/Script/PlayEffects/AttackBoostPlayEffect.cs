@@ -11,6 +11,7 @@ public class AttackBoostPlayEffect : CardEffect
     public override void Activate()
     {
         playerprop = FindObjectOfType<PlayerProperty>();
-        playerprop._attackboostVal = _attackBoostValue;
+        playerprop._attackboostVal += _attackBoostValue;
+        playerprop.attackBoostDuration();
     }
 }

@@ -5,54 +5,55 @@ using UnityEngine;
 public class PlayerProperty : Health
 {
     [SerializeField] PlayerHUD playerhud;
+    [SerializeField] GameController gamecontroller;
+    Enemy enemy;
     int maxMana = 10;
     int currentMana;
     int mana;
 
     int maxArmor = 100;
-    int currentArmor;
     int armor;
 
+    int turn;
+
+    int currentAttackBoostVal;
     int attackboostVal;
 
     int currentHealth;
+
+    int remaining;
+
+    bool isDead = false;
+
+    public bool _isDead { get => isDead; }
     public int _mana { get => mana; set => mana = value; }
     public int _armor { get => armor; set => armor = value; }
     public int _attackboostVal { get => attackboostVal; set => attackboostVal = value; }
-
+    public int _turn { get => turn; set => turn = value; }
+    public int _remaining { get => remaining; set => remaining = value; }
     private void Awake()
     {
+        remaining = 3;
+        enemy = FindObjectOfType<Enemy>();
+        gamecontroller = FindObjectOfType<GameController>();
         playerhud.setMaxHealth(_health);
         playerhud.setMaxMana(maxMana);
         playerhud.setMaxArmor(maxArmor);
         playerhud.updateHealthBar();
         playerhud.updateManaBar();
         playerhud.updateArmorBar();
-        currentArmor = 0;
+        playerhud.updateAttack();
         currentHealth = _health;
         currentMana = mana;
     }
 
-    private void Update()
+    public void attackBoostDuration()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if(_attackboostVal > currentAttackBoostVal)
         {
-            TakeDamage(10);
+            playerhud.updateAttack();
+            currentAttackBoostVal = _attackboostVal;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Heal(5);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            mana++;
-            playerhud.updateManaBar();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            addArmor(5);
-        }
-
     }
 
     public void CanHeal(int value)
@@ -110,17 +111,23 @@ public class PlayerProperty : Health
         {
             _health -= value;
         }
-
+        if (_health <= 0)
+        {
+            Die();
+        }
         playerhud.updateHealthBar();
         playerhud.updateArmorBar();
     }
 
+    public override void Heal(int value)
+    {
+        _health += value;
+        playerhud.updateHealthBar();
+    }
+
     protected override void Die()
     {
-        if(currentHealth <= 0)
-        {
-            //set gameover state
-        }
-
+            isDead = true;
+            gamecontroller.DeathMenu();
     }
 }

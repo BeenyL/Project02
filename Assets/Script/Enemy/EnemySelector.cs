@@ -9,6 +9,9 @@ public class EnemySelector : MonoBehaviour
     [SerializeField] Image selectedEnemyImg;
     Enemy enemy;
     public Enemy _enemy => enemy;
+
+    bool enemychose = false;
+    public bool _enemychose { get => enemychose; set => enemychose = value; }
     GraphicRaycaster _raycaster;
     PointerEventData _pointerEventData;
     EventSystem _eventSystem;
@@ -23,7 +26,7 @@ public class EnemySelector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            bool enemychose = false;
+            enemychose = false;
             // set up new Pointer Event
             _pointerEventData = new PointerEventData(_eventSystem);
             _pointerEventData.position = Input.mousePosition;
