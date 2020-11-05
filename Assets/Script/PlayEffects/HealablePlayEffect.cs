@@ -11,6 +11,6 @@ public class HealablePlayEffect : CardEffect
     public override void Activate()
     {
         playerprop = FindObjectOfType<PlayerProperty>();
-        playerprop.Heal(_healAmount);
+        playerprop.CanHeal(_healAmount);
     }
 }

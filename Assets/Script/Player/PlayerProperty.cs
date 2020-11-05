@@ -7,7 +7,7 @@ public class PlayerProperty : Health
     [SerializeField] PlayerHUD playerhud;
     [SerializeField] GameController gamecontroller;
     Enemy enemy;
-    int maxMana = 10;
+    int maxMana = 12;
     int currentMana;
     int mana;
 
@@ -20,6 +20,7 @@ public class PlayerProperty : Health
     int attackboostVal;
 
     int currentHealth;
+    int maxHealth;
 
     int remaining;
 
@@ -44,6 +45,7 @@ public class PlayerProperty : Health
         playerhud.updateArmorBar();
         playerhud.updateAttack();
         currentHealth = _health;
+        maxHealth = _health;
         currentMana = mana;
     }
 
@@ -58,10 +60,18 @@ public class PlayerProperty : Health
 
     public void CanHeal(int value)
     {
-        Heal(value);
-        if (currentHealth >= _health)
+        if (_health >= currentHealth)
         {
-            currentHealth = _health;
+            _health = currentHealth;
+        }
+        else
+        {
+            _health += value;
+            if(_health > maxHealth)
+            {
+                _health = maxHealth;
+            }
+            playerhud.updateHealthBar();
         }
     }
 
@@ -85,7 +95,11 @@ public class PlayerProperty : Health
     public void addMana(int value)
     {
         mana += value;
-        playerhud.updateArmorBar();
+        if(mana >= maxMana)
+        {
+            mana = maxMana;
+        }
+        playerhud.updateManaBar();
     }
 
     public override void TakeDamage(int value)
@@ -127,7 +141,7 @@ public class PlayerProperty : Health
 
     protected override void Die()
     {
-            isDead = true;
-            gamecontroller.DeathMenu();
+        isDead = true;
+        gamecontroller.DeathMenu();
     }
 }
