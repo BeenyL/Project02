@@ -74,6 +74,7 @@ public class CardSelector : MonoBehaviour
             if (abilityCard.effect.ToString() == "DMG" && enemySelector.IsActive() == false)
             {
                 CheckIfDmgCard();
+
             }
             else
             {
@@ -87,6 +88,9 @@ public class CardSelector : MonoBehaviour
 
                 gameManager.FrontEndDiscardDeck.Add(gameManager.HandDeck[playerhandslot._slot]);
                 gameManager.HandDeck[playerhandslot._slot] = null;
+
+                cancel.gameObject.SetActive(false);
+                confirm.gameObject.SetActive(false);
             }
         }
         else
@@ -101,9 +105,7 @@ public class CardSelector : MonoBehaviour
             Debug.Log("fail to play");
         }
         StartCoroutine(StartNotify());
-        playerhud.updateManaBar();
-        cancel.gameObject.SetActive(false);
-        confirm.gameObject.SetActive(false);
+        playerhud.updateManaBar(); 
     }
 
     public void CheckIfDmgCard()
