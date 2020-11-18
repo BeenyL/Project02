@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerProperty : Health
 {
     [SerializeField] PlayerHUD playerhud;
     [SerializeField] GameController gamecontroller;
+    [SerializeField] Image HurtFade;
     Enemy enemy;
     int maxMana = 12;
     int currentMana;
@@ -129,8 +131,20 @@ public class PlayerProperty : Health
         {
             Die();
         }
+        StartCoroutine(HurtSequence());
         playerhud.updateHealthBar();
         playerhud.updateArmorBar();
+    }
+
+    IEnumerator HurtSequence()
+    {
+        HurtFade.gameObject.SetActive(true);
+        HurtFade.CrossFadeAlpha(0, 0, false);
+        HurtFade.CrossFadeAlpha(.5f, .25f, false);
+        yield return new WaitForSeconds(.25f);
+        HurtFade.CrossFadeAlpha(0, 1, false);
+        yield return new WaitForSeconds(1);
+        HurtFade.gameObject.SetActive(false);
     }
 
     public override void Heal(int value)

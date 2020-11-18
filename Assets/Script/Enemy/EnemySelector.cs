@@ -27,14 +27,13 @@ public class EnemySelector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             enemychose = false;
-            // set up new Pointer Event
+
             _pointerEventData = new PointerEventData(_eventSystem);
             _pointerEventData.position = Input.mousePosition;
 
             List<RaycastResult> results = new List<RaycastResult>();
-            // raycast using the graphics raycaster and mouse click position
+
             _raycaster.Raycast(_pointerEventData, results);
-            // if a card is selected -> takes player to upgrade panel
 
             foreach (RaycastResult result in results)
             {
@@ -44,7 +43,6 @@ public class EnemySelector : MonoBehaviour
                     selectedEnemyImg.transform.position = enemyslot.transform.position;
                     enemychose = true;
                     enemy = enemyslot.GetComponent<Enemy>();
-
                 }
                 break;
             }

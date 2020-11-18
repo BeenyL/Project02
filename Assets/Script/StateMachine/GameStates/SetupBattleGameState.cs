@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetupBattleGameState : BattleState
 {
     GameManager gameManager;
-
+    SaveManager savemanager;
     bool _activated = false;
 
     public override void Enter()
