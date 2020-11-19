@@ -9,6 +9,7 @@ public class AbilityCard : Card
     public Type type { get; }
     public Effects effect { get; }
     public int effectValue { get; }
+    public AudioClip sound { get; }
 
     public AbilityCard(AbilityCardData Data)
     {
@@ -19,6 +20,7 @@ public class AbilityCard : Card
         type = Data.CardType;
         effect = Data.Effect;
         effectValue = Data.Effect_Value;
+        sound = Data.Sound;
     }
 
     public override void Play()

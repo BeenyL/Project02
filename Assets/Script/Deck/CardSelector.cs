@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class CardSelector : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class CardSelector : MonoBehaviour
     [SerializeField] Button confirm;
     [SerializeField] Text notify;
     [SerializeField] PlayerHUD playerhud;
+    [SerializeField] AudioSource audio;
+    [SerializeField] AudioClip SelectCard;
+    [SerializeField] AudioClip CancelCard;
     // normal raycasts do not work on UI elements, they require a special kind
     GraphicRaycaster _raycaster;
     PointerEventData _pointerEventData;
@@ -46,7 +50,10 @@ public class CardSelector : MonoBehaviour
                 {
                     PlayerHandSlot playerhandslot = result.gameObject.GetComponentInParent<PlayerHandSlot>();
                     SelectedCardSlotPos = playerhandslot.transform;
-                    playerhandslot.transform.position = gameManager.selectedCardPos.position;
+                    audio.PlayOneShot(SelectCard);
+                    //playerhandslot.transform.position = gameManager.selectedCardPos.position;
+                    playerhandslot.transform.DOMove(gameManager.selectedCardPos.position, .5f, false);
+                    playerhandslot.transform.DORotate(new Vector3(0, 360, 0), .5f, RotateMode.FastBeyond360);
                     choseCard = true;
                 }
                 break;
@@ -60,7 +67,10 @@ public class CardSelector : MonoBehaviour
     public void previousCardPos()
     {
         PlayerHandSlot playerhandslot = SelectedCardSlotPos.gameObject.GetComponent<PlayerHandSlot>();
-        SelectedCardSlotPos.position = gameManager.cardPosTransforms[playerhandslot._slot].position;
+        //SelectedCardSlotPos.position = gameManager.cardPosTransforms[playerhandslot._slot].position;
+        audio.PlayOneShot(CancelCard);
+        playerhandslot.transform.DOMove(gameManager.cardPosTransforms[playerhandslot._slot].position, 1f, false);
+        playerhandslot.transform.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360);
         cancel.gameObject.SetActive(false);
         confirm.gameObject.SetActive(false);
     }
@@ -80,10 +90,11 @@ public class CardSelector : MonoBehaviour
             {
                 Card card = gameManager.Hand.GetCard(playerhandslot._slot);
                 card.Play();
+                audio.PlayOneShot(abilityCard.sound);
                 playerprop._mana -= card.Cost;
                 playerhandslot.transform.parent = gameManager.discardTransform;
                 gameManager.DiscardDeck.Add(card);
-                playerhandslot.transform.position = gameManager.discardTransform.position;
+                StartCoroutine(ActivateAnimation());
                 gameManager.Hand.DeletefromHand(playerhandslot._slot);
 
                 gameManager.FrontEndDiscardDeck.Add(gameManager.HandDeck[playerhandslot._slot]);
@@ -106,6 +117,15 @@ public class CardSelector : MonoBehaviour
         }
         StartCoroutine(StartNotify());
         playerhud.updateManaBar(); 
+    }
+
+    IEnumerator ActivateAnimation()
+    {
+        PlayerHandSlot playerhandslot = SelectedCardSlotPos.gameObject.GetComponent<PlayerHandSlot>();
+        playerhandslot.transform.DOScale(.01f, .25f);
+        yield return new WaitForSeconds(1f);
+        playerhandslot.transform.DOScale(1f, .25f);
+        playerhandslot.transform.position = gameManager.discardTransform.position;
     }
 
     public void CheckIfDmgCard()

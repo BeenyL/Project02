@@ -8,6 +8,8 @@ public class PlayerProperty : Health
     [SerializeField] PlayerHUD playerhud;
     [SerializeField] GameController gamecontroller;
     [SerializeField] Image HurtFade;
+    [SerializeField] AudioClip Hurt;
+    [SerializeField] AudioSource audio;
     Enemy enemy;
     int maxMana = 12;
     int currentMana;
@@ -138,6 +140,7 @@ public class PlayerProperty : Health
 
     IEnumerator HurtSequence()
     {
+        audio.PlayOneShot(Hurt);
         HurtFade.gameObject.SetActive(true);
         HurtFade.CrossFadeAlpha(0, 0, false);
         HurtFade.CrossFadeAlpha(.5f, .25f, false);

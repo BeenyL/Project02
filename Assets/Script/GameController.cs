@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
     [SerializeField] Text[] MenuText;
     [SerializeField] GameObject Menu;
     [SerializeField] Image MenuPanel;
+    [SerializeField] Button NextLevelBtn;
     [SerializeField] Color DiedColor;
     [SerializeField] Color MenuColor;
     [SerializeField] Color VictoryColorOne;
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         playerprop = FindObjectOfType<PlayerProperty>();
+        NextLevelBtn.gameObject.SetActive(false);
     }
     void Update()
     {
@@ -61,6 +63,7 @@ public class GameController : MonoBehaviour
             MenuText[i].text = "Victory!";
         }
         Menu.SetActive(true);
+        NextLevelBtn.gameObject.SetActive(true);
     }
 
     public void RestartGame()

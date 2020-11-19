@@ -19,4 +19,5 @@ MonoBehaviour:
   _playEffect: {fileID: 11400000, guid: 5e38d7cd0e584b849a00afe439fbd90e, type: 2}
   _cardType: 2
   _effect: 3
-  effect_value: 5
+  effect_value: 15
+  _sound: {fileID: 8300000, guid: 04766aac8523e4147b6a939dd204ae37, type: 3}

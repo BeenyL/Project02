@@ -27,4 +27,7 @@ public class AbilityCardData : ScriptableObject
 
     [SerializeField] int effect_value;
     public int Effect_Value => effect_value;
+
+    [SerializeField] AudioClip _sound;
+    public AudioClip Sound => _sound;
 }

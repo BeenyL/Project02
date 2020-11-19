@@ -20,3 +20,4 @@ MonoBehaviour:
   _cardType: 2
   _effect: 0
   effect_value: 5
+  _sound: {fileID: 8300000, guid: 360604fc71525fb45bc5f94c576dc7c5, type: 3}

@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerDrawState : BattleState
 {
     bool _activated = false;
     SetupBattleGameState setupbattlegamestate;
     GameManager gameManager;
+    [SerializeField] AudioSource drawaudio;
+    [SerializeField] AudioSource turnaudio;
+    [SerializeField] AudioClip Draw_Card;
+    [SerializeField] AudioClip playerTurn;
+    const string DrawState = "Draw";
 
     public override void Enter()
     {
@@ -18,7 +24,7 @@ public class PlayerDrawState : BattleState
         {
             refreshCards();
         }
-
+        turnaudio.PlayOneShot(playerTurn);
         DrawCard();
         _activated = true;
     }
@@ -37,9 +43,9 @@ public class PlayerDrawState : BattleState
         _activated = false;
     }
 
-    private void DrawCard()
+    public void DrawCard()
     {
-        for(int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++)
         {
             if (gameManager.cardPosTransforms[i].childCount == 0 && gameManager.Deck.Count > 0) {
                 // for front end deck
@@ -47,14 +53,22 @@ public class PlayerDrawState : BattleState
 
                 gameManager.PhysicalDeck[gameManager.Deck.Count - 1] = null;
 
-                gameManager.HandDeck[i].transform.position = gameManager.cardPosTransforms[i].position;
+                gameManager.HandDeck[i].transform.position = gameManager.cardStartPos.position;
 
+                drawaudio.PlayOneShot(Draw_Card);
+
+                Transform transform = gameManager.HandDeck[i].gameObject.transform;
+
+                transform.DOMove(gameManager.cardPosTransforms[i].position, 1f, false);
+
+                transform.DORotate(new Vector3(0, 360, 360), 1f, RotateMode.FastBeyond360);
+
+                //gameManager.HandDeck[i].transform.position = gameManager.cardPosTransforms[i].position;
                 gameManager.HandDeck[i].transform.parent = gameManager.cardPosTransforms[i];
 
                 gameManager.HandDeck[i].AddComponent<PlayerHandSlot>();
 
                 gameManager.HandDeck[i].GetComponent<PlayerHandSlot>()._slot = i;
-
 
                 // for back end deck
                 Card card = gameManager.Deck.Draw();

@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // front end
+    [SerializeField] Transform _cardStartPos;
+    public Transform cardStartPos => _cardStartPos;
+
     [SerializeField] Transform[] _cardPosTransforms;
     public Transform[] cardPosTransforms => _cardPosTransforms;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : Health
 {
@@ -9,22 +10,34 @@ public class Enemy : Health
     [SerializeField] PlayerProperty playerprop;
     [SerializeField] Transform defaultSelPos;
     [SerializeField] MonsterAnimation animator;
+
+    [SerializeField] Image spriteImg;
+    [SerializeField] Sprite monster;
+    [SerializeField] Sprite boss;
+
+    [SerializeField] bgmManager bmgmanger;
+
     [SerializeField] int Dmg = 5;
     EnemySelector enemyselector;
     GameController gamecontoller;
     bool isDead;
     bool isSelected;
+    bool ifBoss = false;
     int currenthealth;
+    int maxHealth;
     int maxProb;
     public int _currenthealth => currenthealth;
     public bool _isSelected { get => isSelected; set => isSelected = value; }
+    public bool _isBoss { get => ifBoss; }
     private void Awake()
     {
         animator = GetComponent<MonsterAnimation>();
+        bmgmanger = FindObjectOfType<bgmManager>();
         gamecontoller = FindObjectOfType<GameController>();
         enemyselector = FindObjectOfType<EnemySelector>();
-        enemyhud.setMaxHealth(_health);
         currenthealth = _health;
+        maxHealth = _health;
+        enemyhud.setMaxHealth(_health);
         enemyhud.updateEnemyHealth();
         maxProb = 5;
     }
@@ -40,6 +53,7 @@ public class Enemy : Health
         if(_health <= 0)
         {
             StartCoroutine(DeathSequence());
+            _health = 0;
             CheckWinCondition();
         }
     }
@@ -83,9 +97,38 @@ public class Enemy : Health
 
     public void Respawn()
     {
-        //set all enemies active once the wave is done.
-        Dmg += Random.Range(1, 4);
-        _health += Random.Range(10, 50);
-        maxProb = Random.Range(1, 10);
+        int isBoss = Random.Range(1, 10);
+        ifBoss = false;
+        if (isBoss == 5)
+        {
+            ifBoss = true;
+            Dmg += Random.Range(4, 6);
+            maxHealth += Random.Range(35, 50);
+            maxProb = Random.Range(1, 10);
+            spriteImg.sprite = boss;
+            spriteImg.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        }
+        else
+        {
+            Dmg += Random.Range(1, 3);
+            maxHealth += Random.Range(5, 20);
+            maxProb = Random.Range(1, 10);
+            spriteImg.sprite = monster;
+            spriteImg.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        playerprop._remaining = 3;
+        Refresh_Attributes();
+        isDead = false;
+        gameObject.SetActive(true);
+        animator.Idle_Animation();
+        bmgmanger.playbgm();
     }
+    public void Refresh_Attributes()
+    {
+        _health = maxHealth;
+        enemyhud.setMaxHealth(_health);
+        currenthealth = _health;
+        enemyhud.updateEnemyHealth();
+    }
+
 }
