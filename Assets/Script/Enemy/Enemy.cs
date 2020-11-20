@@ -15,11 +15,15 @@ public class Enemy : Health
     [SerializeField] Sprite monster;
     [SerializeField] Sprite boss;
 
+    [SerializeField] Text enemyText;
+
     [SerializeField] bgmManager bmgmanger;
 
     [SerializeField] int Dmg = 5;
     EnemySelector enemyselector;
     GameController gamecontoller;
+    SaveManager savemanager;
+
     bool isDead;
     bool isSelected;
     bool ifBoss = false;
@@ -31,6 +35,7 @@ public class Enemy : Health
     public bool _isBoss { get => ifBoss; }
     private void Awake()
     {
+        enemyText.text = "Oreling";
         animator = GetComponent<MonsterAnimation>();
         bmgmanger = FindObjectOfType<bgmManager>();
         gamecontoller = FindObjectOfType<GameController>();
@@ -66,6 +71,7 @@ public class Enemy : Health
         enemyselector._enemychose = false;
         playerprop._remaining -= 1;
         animator.Die_Animation();
+        ifBoss = false;
         yield return new WaitForSeconds(.5f);
         Die();
         Debug.Log(playerprop._remaining);
@@ -91,16 +97,19 @@ public class Enemy : Health
     {
         if(playerprop._remaining <= 0)
         {
+
             gamecontoller.WinMenu();
         }
     }
 
     public void Respawn()
     {
+        savemanager = FindObjectOfType<SaveManager>();
         int isBoss = Random.Range(1, 10);
         ifBoss = false;
-        if (isBoss == 5)
+        if (isBoss == 5 && savemanager.currentLevel > 1)
         {
+            enemyText.text = "Ore Overlord";
             ifBoss = true;
             Dmg += Random.Range(4, 6);
             maxHealth += Random.Range(35, 50);
@@ -110,12 +119,19 @@ public class Enemy : Health
         }
         else
         {
+            enemyText.text = "Oreling";
+            ifBoss = false;
             Dmg += Random.Range(1, 3);
             maxHealth += Random.Range(5, 20);
             maxProb = Random.Range(1, 10);
             spriteImg.sprite = monster;
             spriteImg.transform.localScale = new Vector3(1f, 1f, 1f);
         }
+        updateEnemies();
+    }
+
+    void updateEnemies()
+    {
         playerprop._remaining = 3;
         Refresh_Attributes();
         isDead = false;
@@ -123,6 +139,7 @@ public class Enemy : Health
         animator.Idle_Animation();
         bmgmanger.playbgm();
     }
+
     public void Refresh_Attributes()
     {
         _health = maxHealth;

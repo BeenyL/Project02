@@ -758,13 +758,12 @@ MonoBehaviour:
   playerprop: {fileID: 0}
   defaultSelPos: {fileID: 0}
   animator: {fileID: 1365575510}
-  audio: {fileID: 0}
-  bossbgm: {fileID: 8300000, guid: d44b0ef04b941a24988982b7b1c5d6a5, type: 3}
-  normalbgm: {fileID: 8300000, guid: 4e5b6d91f84f45e4aba9534560ec79de, type: 3}
   spriteImg: {fileID: 1195226938298585452}
   monster: {fileID: 21300000, guid: f9251a994ec5c95438cee3f5247e3a54, type: 3}
   boss: {fileID: 21300000, guid: e86a22e1478292e418a62bef03f508a0, type: 3}
-  Dmg: 5
+  enemyText: {fileID: 1195226938580720057}
+  bmgmanger: {fileID: 0}
+  Dmg: 1
 --- !u!114 &1195226938827315082
 MonoBehaviour:
   m_ObjectHideFlags: 0

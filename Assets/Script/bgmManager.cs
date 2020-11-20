@@ -11,7 +11,7 @@ public class bgmManager : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             enemy[i] = FindObjectOfType<Enemy>();
         }
@@ -19,17 +19,19 @@ public class bgmManager : MonoBehaviour
 
     public void playbgm()
     {
-        bool boss = false;
-        if (enemy[0]._isBoss == true || enemy[1]._isBoss == true || enemy[2]._isBoss == true && boss == false)
+        for (int i = 0; i < 3; i++)
         {
-            boss = true;
+            enemy[i] = FindObjectOfType<Enemy>();
+        }
+
+        if (enemy[0]._isBoss == true || enemy[1]._isBoss == true || enemy[2]._isBoss == true)
+        {
             audio.clip = bossbgm;
             audio.Play();
         }
 
-        if (enemy[0]._isBoss == false && enemy[1]._isBoss == false && enemy[2]._isBoss == false && boss == true)
+        if (enemy[0]._isBoss == false && enemy[1]._isBoss == false && enemy[2]._isBoss == false)
         {
-            boss = false;
             audio.clip = normalbgm;
             audio.Play();
         }

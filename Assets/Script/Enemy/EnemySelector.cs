@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class EnemySelector : MonoBehaviour
 {
     [SerializeField] Image selectedEnemyImg;
+    [SerializeField] Image allSelectedEnemyImg;
+    [SerializeField] CardSelector cardselector;
     Enemy enemy;
     public Enemy _enemy => enemy;
 
@@ -21,6 +23,7 @@ public class EnemySelector : MonoBehaviour
         _raycaster = GetComponent<GraphicRaycaster>();
         _eventSystem = GetComponent<EventSystem>();
         gameManger = FindObjectOfType<GameManager>();
+        cardselector = GetComponent<CardSelector>();
     }
     void Update()
     {
@@ -49,7 +52,28 @@ public class EnemySelector : MonoBehaviour
             if(enemychose == true)
             {
                 selectedEnemyImg.gameObject.SetActive(true);
+                if (cardselector._aoeCard == true)
+                {
+                    allSelectedEnemyImg.gameObject.SetActive(true);
+                }
+                else
+                {
+                    allSelectedEnemyImg.gameObject.SetActive(false);
+                }
             }
         }
     }
+
+    public void aoeSelect()
+    {
+        if(selectedEnemyImg.IsActive() == true) { 
+        allSelectedEnemyImg.gameObject.SetActive(true);
+        }
+    }
+
+    public void defSelect()
+    {
+            allSelectedEnemyImg.gameObject.SetActive(false);
+    }
+
 }

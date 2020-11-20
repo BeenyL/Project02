@@ -16,18 +16,25 @@ public class CardSelector : MonoBehaviour
     [SerializeField] AudioSource audio;
     [SerializeField] AudioClip SelectCard;
     [SerializeField] AudioClip CancelCard;
+    [SerializeField] AudioClip tryagain;
+    [SerializeField] EnemySelector enemyselector;
     // normal raycasts do not work on UI elements, they require a special kind
     GraphicRaycaster _raycaster;
     PointerEventData _pointerEventData;
     EventSystem _eventSystem;
     GameManager gameManager;
     PlayerProperty playerprop;
+
+    bool aoeCard = false;
+    public bool _aoeCard => aoeCard;
+
     private void Awake()
     {
         _raycaster = GetComponent<GraphicRaycaster>();
         _eventSystem = GetComponent<EventSystem>();
         gameManager = FindObjectOfType<GameManager>();
         playerprop = FindObjectOfType<PlayerProperty>();
+        enemyselector = GetComponent<EnemySelector>();
     }
 
     void Update()
@@ -55,6 +62,17 @@ public class CardSelector : MonoBehaviour
                     playerhandslot.transform.DOMove(gameManager.selectedCardPos.position, .5f, false);
                     playerhandslot.transform.DORotate(new Vector3(0, 360, 0), .5f, RotateMode.FastBeyond360);
                     choseCard = true;
+
+                    AbilityCard abilityCard = (AbilityCard)gameManager.Hand.GetCard(playerhandslot._slot);
+                    if (abilityCard.effect.ToString() == "DMG" && ((DamagePlayEffect)abilityCard.PlayEffect).is_aoe == true)
+                    {
+                        enemyselector.aoeSelect();
+                        aoeCard = true;
+                    }
+                    else
+                    {
+                        aoeCard = false;
+                    }
                 }
                 break;
             }
@@ -73,6 +91,8 @@ public class CardSelector : MonoBehaviour
         playerhandslot.transform.DORotate(new Vector3(0, 0, 360), 1f, RotateMode.FastBeyond360);
         cancel.gameObject.SetActive(false);
         confirm.gameObject.SetActive(false);
+        aoeCard = false;
+        enemyselector.defSelect();
     }
 
     public void playCardEffect()
@@ -84,7 +104,6 @@ public class CardSelector : MonoBehaviour
             if (abilityCard.effect.ToString() == "DMG" && enemySelector.IsActive() == false)
             {
                 CheckIfDmgCard();
-
             }
             else
             {
@@ -102,6 +121,9 @@ public class CardSelector : MonoBehaviour
 
                 cancel.gameObject.SetActive(false);
                 confirm.gameObject.SetActive(false);
+
+                enemyselector.defSelect();
+                aoeCard = false;
             }
         }
         else
@@ -109,6 +131,7 @@ public class CardSelector : MonoBehaviour
             if (playerprop._mana < gameManager.Hand.GetCard(playerhandslot._slot).Cost)
             {
                 notify.text = "Not Enough Mana!";
+                audio.PlayOneShot(tryagain);
             }
             Debug.Log("player mana " + playerprop._mana);
             Debug.Log("card mana: " + gameManager.Hand.GetCard(playerhandslot._slot).Cost);
@@ -135,6 +158,7 @@ public class CardSelector : MonoBehaviour
         if (abilityCard.effect.ToString() == "DMG" && playerprop._mana >= gameManager.Hand.GetCard(playerhandslot._slot).Cost &&
             enemySelector.IsActive() == false)
         {
+            audio.PlayOneShot(tryagain);
             notify.text = "Please Select a Target!";
         }
         else

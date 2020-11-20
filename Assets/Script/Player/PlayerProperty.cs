@@ -8,6 +8,8 @@ public class PlayerProperty : Health
     [SerializeField] PlayerHUD playerhud;
     [SerializeField] GameController gamecontroller;
     [SerializeField] Image HurtFade;
+    [SerializeField] Image HealFade;
+    [SerializeField] Image ManaFade;
     [SerializeField] AudioClip Hurt;
     [SerializeField] AudioSource audio;
     Enemy enemy;
@@ -77,6 +79,7 @@ public class PlayerProperty : Health
             }
             playerhud.updateHealthBar();
         }
+        StartCoroutine(HealSequence());
     }
 
     public void ManaRefresh()
@@ -103,6 +106,7 @@ public class PlayerProperty : Health
         {
             mana = maxMana;
         }
+        StartCoroutine(ManaSequence());
         playerhud.updateManaBar();
     }
 
@@ -148,6 +152,28 @@ public class PlayerProperty : Health
         HurtFade.CrossFadeAlpha(0, 1, false);
         yield return new WaitForSeconds(1);
         HurtFade.gameObject.SetActive(false);
+    }
+
+    IEnumerator HealSequence()
+    {
+        HealFade.gameObject.SetActive(true);
+        HealFade.CrossFadeAlpha(0, 0, false);
+        HealFade.CrossFadeAlpha(.5f, .1f, false);
+        yield return new WaitForSeconds(.1f);
+        HealFade.CrossFadeAlpha(0, 1, false);
+        yield return new WaitForSeconds(1);
+        HealFade.gameObject.SetActive(false);
+    }
+
+    IEnumerator ManaSequence()
+    {
+        ManaFade.gameObject.SetActive(true);
+        ManaFade.CrossFadeAlpha(0, 0, false);
+        ManaFade.CrossFadeAlpha(.5f, .1f, false);
+        yield return new WaitForSeconds(.1f);
+        ManaFade.CrossFadeAlpha(0, 1, false);
+        yield return new WaitForSeconds(1);
+        ManaFade.gameObject.SetActive(false);
     }
 
     public override void Heal(int value)

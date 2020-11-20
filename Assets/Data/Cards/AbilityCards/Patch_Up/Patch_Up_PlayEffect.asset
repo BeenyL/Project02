@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50bdacbfb40000b43b7407f109412622, type: 3}
   m_Name: Patch_Up_PlayEffect
   m_EditorClassIdentifier: 
-  _healAmount: 5
+  _healAmount: 15

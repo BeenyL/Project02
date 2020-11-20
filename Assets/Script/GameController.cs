@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
     [SerializeField] Color VictoryColorOne;
     [SerializeField] Color VictoryColorTwo;
     PlayerProperty playerprop;
+    SaveManager savemanager;
     bool esc;
     //restart / quit
     private void Awake()
@@ -55,6 +56,9 @@ public class GameController : MonoBehaviour
 
     public void WinMenu()
     {
+        savemanager = FindObjectOfType<SaveManager>();
+        savemanager.currentLevel++;
+        Save.SaveGame(savemanager);
         MenuPanel.color = MenuColor;
         for (int i = 0; i < 3; i++)
         {
@@ -68,7 +72,7 @@ public class GameController : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void EndGame()

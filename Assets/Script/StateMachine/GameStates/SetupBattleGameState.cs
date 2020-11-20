@@ -6,13 +6,17 @@ using UnityEngine.UI;
 public class SetupBattleGameState : BattleState
 {
     GameManager gameManager;
-    SaveManager savemanager;
+    SaveManager saveManager;
+    [SerializeField] Text saveText;
     bool _activated = false;
+    Enemy[] enemy;
 
     public override void Enter()
     {
+        updateLevelText();
         print("Enter: Setup State");
         gameManager = FindObjectOfType<GameManager>();
+        setupEnemies();
         CreateDeckBackend();
         ShuffleDeckBackend();
         CreateDeckFrontend();
@@ -31,6 +35,24 @@ public class SetupBattleGameState : BattleState
     {
         print("Exit: Setup State");
         _activated = false;
+    }
+
+    public void updateLevelText()
+    {
+        saveManager = FindObjectOfType<SaveManager>();
+        saveText.text = "Current Level: " + (saveManager.currentLevel+1).ToString();
+    }
+
+    void setupEnemies()
+    {
+        saveManager = FindObjectOfType<SaveManager>();
+        enemy = FindObjectsOfType<Enemy>();
+        for (int i = 0; i < saveManager.currentLevel; i++) {
+            foreach(Enemy e in enemy)
+            {
+                e.Respawn();
+            }
+        }
     }
 
     void CreateHand()
