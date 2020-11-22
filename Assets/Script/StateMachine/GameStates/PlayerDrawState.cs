@@ -8,6 +8,7 @@ public class PlayerDrawState : BattleState
     bool _activated = false;
     SetupBattleGameState setupbattlegamestate;
     GameManager gameManager;
+    PlayerProperty playerprop;
     [SerializeField] AudioSource drawaudio;
     [SerializeField] AudioSource turnaudio;
     [SerializeField] AudioClip Draw_Card;
@@ -16,17 +17,20 @@ public class PlayerDrawState : BattleState
 
     public override void Enter()
     {
+        playerprop = FindObjectOfType<PlayerProperty>();
         setupbattlegamestate = GetComponent<SetupBattleGameState>();
         gameManager = FindObjectOfType<GameManager>();
-        print("Enter: Player Draw State");
 
         if(gameManager.Deck.Count == 0)
         {
             refreshCards();
         }
-        turnaudio.PlayOneShot(playerTurn);
-        DrawCard();
-        _activated = true;
+        if (!playerprop._isDead)
+        {
+            turnaudio.PlayOneShot(playerTurn);
+            DrawCard();
+            _activated = true;
+        }
     }
 
     public override void Tick()
@@ -39,7 +43,6 @@ public class PlayerDrawState : BattleState
 
     public override void Exit()
     {
-        print("Exit: Player Draw State");
         _activated = false;
     }
 

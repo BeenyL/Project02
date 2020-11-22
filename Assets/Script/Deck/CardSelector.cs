@@ -133,10 +133,6 @@ public class CardSelector : MonoBehaviour
                 notify.text = "Not Enough Mana!";
                 audio.PlayOneShot(tryagain);
             }
-            Debug.Log("player mana " + playerprop._mana);
-            Debug.Log("card mana: " + gameManager.Hand.GetCard(playerhandslot._slot).Cost);
-            Debug.Log("card name: " + gameManager.Hand.GetCard(playerhandslot._slot).Name);
-            Debug.Log("fail to play");
         }
         StartCoroutine(StartNotify());
         playerhud.updateManaBar(); 

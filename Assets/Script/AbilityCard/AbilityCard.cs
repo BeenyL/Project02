@@ -25,7 +25,6 @@ public class AbilityCard : Card
 
     public override void Play()
     {
-        Debug.Log("Playing " + Name + " on target");
         PlayEffect.Activate();
     }
 }

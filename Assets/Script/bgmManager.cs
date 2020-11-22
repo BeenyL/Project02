@@ -6,6 +6,7 @@ public class bgmManager : MonoBehaviour
 {
     [SerializeField] AudioClip normalbgm;
     [SerializeField] AudioClip bossbgm;
+    [SerializeField] AudioClip deathbgm;
     [SerializeField] AudioSource audio;
     [SerializeField] Enemy[] enemy;
 
@@ -35,5 +36,11 @@ public class bgmManager : MonoBehaviour
             audio.clip = normalbgm;
             audio.Play();
         }
+    }
+
+    public void playDeathbgm()
+    {
+        audio.clip = deathbgm;
+        audio.Play();
     }
 }

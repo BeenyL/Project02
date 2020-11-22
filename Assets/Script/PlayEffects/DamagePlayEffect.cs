@@ -33,7 +33,5 @@ public class DamagePlayEffect : CardEffect
             enemy.TakeDamage(_damageAmount + playerprop._attackboostVal);
             enemy.CheckHealth();
         }
-        //enemy.CheckHealth();
-        Debug.Log("damagePlayEffect played");
     }
 }

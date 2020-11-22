@@ -14,7 +14,6 @@ public class SetupBattleGameState : BattleState
     public override void Enter()
     {
         updateLevelText();
-        print("Enter: Setup State");
         gameManager = FindObjectOfType<GameManager>();
         setupEnemies();
         CreateDeckBackend();
@@ -33,7 +32,6 @@ public class SetupBattleGameState : BattleState
 
     public override void Exit()
     {
-        print("Exit: Setup State");
         _activated = false;
     }
 

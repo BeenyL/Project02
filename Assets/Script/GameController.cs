@@ -14,8 +14,14 @@ public class GameController : MonoBehaviour
     [SerializeField] Color MenuColor;
     [SerializeField] Color VictoryColorOne;
     [SerializeField] Color VictoryColorTwo;
+
+    [SerializeField] AudioSource audio;
+    [SerializeField] AudioClip win;
+    [SerializeField] AudioClip lose;
+
     PlayerProperty playerprop;
     SaveManager savemanager;
+    SaveData savedata;
     bool esc;
     //restart / quit
     private void Awake()
@@ -51,6 +57,7 @@ public class GameController : MonoBehaviour
         {
             MenuText[i].text = "Game Over!";
         }
+        audio.PlayOneShot(lose);
         Menu.SetActive(true);
     }
 
@@ -66,12 +73,15 @@ public class GameController : MonoBehaviour
             MenuText[2].color = VictoryColorTwo;
             MenuText[i].text = "Victory!";
         }
+        audio.PlayOneShot(win);
         Menu.SetActive(true);
         NextLevelBtn.gameObject.SetActive(true);
     }
 
     public void RestartGame()
     {
+        savemanager = FindObjectOfType<SaveManager>();
+        savemanager.currentLevel = 0;
         SceneManager.LoadScene(1);
     }
 

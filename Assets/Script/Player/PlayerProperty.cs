@@ -7,6 +7,7 @@ public class PlayerProperty : Health
 {
     [SerializeField] PlayerHUD playerhud;
     [SerializeField] GameController gamecontroller;
+    [SerializeField] bgmManager bgmManager;
     [SerializeField] Image HurtFade;
     [SerializeField] Image HealFade;
     [SerializeField] Image ManaFade;
@@ -43,6 +44,7 @@ public class PlayerProperty : Health
         remaining = 3;
         enemy = FindObjectOfType<Enemy>();
         gamecontroller = FindObjectOfType<GameController>();
+        bgmManager = FindObjectOfType<bgmManager>();
         playerhud.setMaxHealth(_health);
         playerhud.setMaxMana(maxMana);
         playerhud.setMaxArmor(maxArmor);
@@ -185,6 +187,14 @@ public class PlayerProperty : Health
     protected override void Die()
     {
         isDead = true;
+        StartCoroutine(deathMenuSeq());
+    }
+
+    IEnumerator deathMenuSeq()
+    {
+        yield return new WaitForSeconds(1f);
+        bgmManager.playDeathbgm();
         gamecontroller.DeathMenu();
     }
+
 }

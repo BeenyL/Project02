@@ -14,7 +14,7 @@ public class PlayerTurnState : BattleState
             playerprop._turn--;
         }
         playerturnindicator.enabled = true;
-        print("Enter: Player Turn");
+
         playerprop.ManaRefresh();
     }
 
@@ -25,7 +25,7 @@ public class PlayerTurnState : BattleState
 
     public override void Exit()
     {
-        print("Exit: Player Turn");
+
     }
 
     public void EndPlayerTurn()

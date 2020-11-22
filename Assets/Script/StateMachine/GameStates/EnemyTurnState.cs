@@ -15,7 +15,6 @@ public class EnemyTurnState : BattleState
     {
         enemyturnindicator.enabled = true;
         stopPlayerAction.gameObject.SetActive(true);
-        print("Enter: Enemy Turn");
         StartCoroutine(EnemyTurn());
         StartCoroutine(TakeTurn());
     }
@@ -49,6 +48,5 @@ public class EnemyTurnState : BattleState
         {
             enemyhud[i].setEnemyText(" ");
         }
-        print("Exit: Enemy Turn");
     }
 }

@@ -30,6 +30,10 @@ public class Enemy : Health
     int currenthealth;
     int maxHealth;
     int maxProb;
+
+    int tempdmgData;
+    int temphealthData;
+
     public int _currenthealth => currenthealth;
     public bool _isSelected { get => isSelected; set => isSelected = value; }
     public bool _isBoss { get => ifBoss; }
@@ -74,7 +78,7 @@ public class Enemy : Health
         ifBoss = false;
         yield return new WaitForSeconds(.5f);
         Die();
-        Debug.Log(playerprop._remaining);
+
     }
 
     public void AttackPattern()
@@ -107,18 +111,31 @@ public class Enemy : Health
         savemanager = FindObjectOfType<SaveManager>();
         int isBoss = Random.Range(1, 10);
         ifBoss = false;
+        bool bossStats = false;
         if (isBoss == 5 && savemanager.currentLevel > 1)
         {
             enemyText.text = "Ore Overlord";
             ifBoss = true;
-            Dmg += Random.Range(4, 6);
-            maxHealth += Random.Range(35, 50);
+            tempdmgData = Random.Range(4, 6);
+            temphealthData = Random.Range(35, 50);
+            Dmg += tempdmgData;
+            maxHealth += temphealthData;
+            temphealthData = maxHealth;
             maxProb = Random.Range(1, 10);
             spriteImg.sprite = boss;
             spriteImg.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            bossStats = true;
+            print("boss respawn  dmg" + gameObject.name + Dmg);
+            print("boss respawn  health" + gameObject.name + maxHealth);
         }
         else
         {
+            if(bossStats == true)
+            {
+                Dmg -= tempdmgData;
+                maxHealth -= temphealthData;
+                bossStats = false;
+            }
             enemyText.text = "Oreling";
             ifBoss = false;
             Dmg += Random.Range(1, 3);
@@ -126,6 +143,8 @@ public class Enemy : Health
             maxProb = Random.Range(1, 10);
             spriteImg.sprite = monster;
             spriteImg.transform.localScale = new Vector3(1f, 1f, 1f);
+            print("regular dmg " + gameObject.name + Dmg);
+            print("regular health " + gameObject.name + maxHealth);
         }
         updateEnemies();
     }
@@ -146,6 +165,16 @@ public class Enemy : Health
         enemyhud.setMaxHealth(_health);
         currenthealth = _health;
         enemyhud.updateEnemyHealth();
+        print("afterDeath respawn dmg " + gameObject.name + Dmg);
+        print("afterDeath respawn health " + gameObject.name + maxHealth);
     }
 
+    /*        if (ifBoss == true)
+        {
+            Dmg -= tempdmgData;
+            maxHealth -= temphpData;
+            tempdmgData = 0;
+            temphpData = 0;
+        }
+    */
 }

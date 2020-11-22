@@ -5437,7 +5437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &343226161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5507,7 +5507,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 295
+          m_IntArgument: 299
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -8382,6 +8382,9 @@ MonoBehaviour:
   MenuColor: {r: 1, g: 1, b: 1, a: 0.19607843}
   VictoryColorOne: {r: 1, g: 0.400387, b: 0, a: 1}
   VictoryColorTwo: {r: 1, g: 0.82113165, b: 0, a: 1}
+  audio: {fileID: 1774817929}
+  win: {fileID: 8300000, guid: bbf8982ec45a5454a9f0d28629d0d1a3, type: 3}
+  lose: {fileID: 8300000, guid: 1ddf006958a8cd54b9fcec0a32ec0d11, type: 3}
 --- !u!4 &550771380
 Transform:
   m_ObjectHideFlags: 0
@@ -17406,7 +17409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1307291645
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19452,6 +19455,7 @@ MonoBehaviour:
   health: 300
   playerhud: {fileID: 1423356988}
   gamecontroller: {fileID: 550771379}
+  bgmManager: {fileID: 1623000678}
   HurtFade: {fileID: 1465616665}
   HealFade: {fileID: 1125026801}
   ManaFade: {fileID: 400577853}
@@ -20287,7 +20291,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Test Button Set player HP: 5'
+  m_Text: 'Test Button Set player HP: 1'
 --- !u!222 &1489803951
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22140,6 +22144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalbgm: {fileID: 8300000, guid: 5a0d5d8e735070341becb59dbf16bda8, type: 3}
   bossbgm: {fileID: 8300000, guid: 6f6a124fcbbc76b40a030ff8f48e07a7, type: 3}
+  deathbgm: {fileID: 8300000, guid: b7302199204fdcd4398da1e4372d4b03, type: 3}
   audio: {fileID: 1623000676}
   enemy:
   - {fileID: 41497839}
