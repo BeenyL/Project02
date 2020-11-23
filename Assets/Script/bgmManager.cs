@@ -20,22 +20,20 @@ public class bgmManager : MonoBehaviour
 
     public void playbgm()
     {
-        for (int i = 0; i < 3; i++)
+        if(enemy[0]._isBoss == false && enemy[1]._isBoss == false && enemy[2]._isBoss == false)
         {
-            enemy[i] = FindObjectOfType<Enemy>();
-        }
-
-        if (enemy[0]._isBoss == true || enemy[1]._isBoss == true || enemy[2]._isBoss == true)
-        {
-            audio.clip = bossbgm;
-            audio.Play();
-        }
-
-        if (enemy[0]._isBoss == false && enemy[1]._isBoss == false && enemy[2]._isBoss == false)
-        {
+            Debug.Log(enemy[0]._isBoss);
+            Debug.Log(enemy[1]._isBoss);
+            Debug.Log(enemy[2]._isBoss);
             audio.clip = normalbgm;
             audio.Play();
         }
+    }
+
+    public void Bossbgm()
+    {
+        audio.clip = bossbgm;
+        audio.Play();
     }
 
     public void playDeathbgm()

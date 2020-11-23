@@ -17,7 +17,7 @@ public class Enemy : Health
 
     [SerializeField] Text enemyText;
 
-    [SerializeField] bgmManager bmgmanger;
+    [SerializeField] bgmManager bgmmanger;
 
     [SerializeField] int Dmg = 5;
     EnemySelector enemyselector;
@@ -41,7 +41,7 @@ public class Enemy : Health
     {
         enemyText.text = "Oreling";
         animator = GetComponent<MonsterAnimation>();
-        bmgmanger = FindObjectOfType<bgmManager>();
+        bgmmanger = FindObjectOfType<bgmManager>();
         gamecontoller = FindObjectOfType<GameController>();
         enemyselector = FindObjectOfType<EnemySelector>();
         currenthealth = _health;
@@ -112,6 +112,7 @@ public class Enemy : Health
         int isBoss = Random.Range(1, 10);
         ifBoss = false;
         bool bossStats = false;
+        bool bgmplayed = false;
         if (isBoss == 5 && savemanager.currentLevel > 1)
         {
             enemyText.text = "Ore Overlord";
@@ -125,8 +126,8 @@ public class Enemy : Health
             spriteImg.sprite = boss;
             spriteImg.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             bossStats = true;
-            print("boss respawn  dmg" + gameObject.name + Dmg);
-            print("boss respawn  health" + gameObject.name + maxHealth);
+            bgmmanger.Bossbgm();
+            bgmplayed = true;
         }
         else
         {
@@ -136,6 +137,10 @@ public class Enemy : Health
                 maxHealth -= temphealthData;
                 bossStats = false;
             }
+            if(bgmplayed != true)
+            {
+                bgmmanger.playbgm();
+            }
             enemyText.text = "Oreling";
             ifBoss = false;
             Dmg += Random.Range(1, 3);
@@ -143,8 +148,6 @@ public class Enemy : Health
             maxProb = Random.Range(1, 10);
             spriteImg.sprite = monster;
             spriteImg.transform.localScale = new Vector3(1f, 1f, 1f);
-            print("regular dmg " + gameObject.name + Dmg);
-            print("regular health " + gameObject.name + maxHealth);
         }
         updateEnemies();
     }
@@ -156,7 +159,6 @@ public class Enemy : Health
         isDead = false;
         gameObject.SetActive(true);
         animator.Idle_Animation();
-        bmgmanger.playbgm();
     }
 
     public void Refresh_Attributes()
@@ -165,8 +167,6 @@ public class Enemy : Health
         enemyhud.setMaxHealth(_health);
         currenthealth = _health;
         enemyhud.updateEnemyHealth();
-        print("afterDeath respawn dmg " + gameObject.name + Dmg);
-        print("afterDeath respawn health " + gameObject.name + maxHealth);
     }
 
     /*        if (ifBoss == true)
