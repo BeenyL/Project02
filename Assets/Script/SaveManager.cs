@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-    [SerializeField] int _currentLevel;
+    [SerializeField] int CurrentLevel;
+    [SerializeField] int Health;
+    [SerializeField] int Mana;
+    [SerializeField] int Armor;
+    [SerializeField] int Attack;
     public static SaveManager instance;
-    public int currentLevel { get => _currentLevel; set => _currentLevel = value; }
+    public int currentLevel { get => CurrentLevel; set => CurrentLevel = value; }
+    public int currentHealth { get => Health; set => Health = value; }
+    public int currentMana { get => Mana; set => Mana = value; }
+    public int currentArmor { get => Armor; set => Armor = value; }
+    public int currentAttack { get => Attack; set => Attack = value; }
 
     private void Awake()
     {
@@ -21,4 +29,12 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    public void setData(SaveData savedata)
+    {
+        CurrentLevel = savedata.CurrentLevel;
+        Health = savedata.Health;
+        Mana = savedata.Mana;
+        Armor = savedata.Armor;
+        Attack = savedata.Attack;
+    }
 }

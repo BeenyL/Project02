@@ -7,14 +7,17 @@ public class SetupBattleGameState : BattleState
 {
     GameManager gameManager;
     SaveManager saveManager;
+    PlayerProperty playerprop;
     [SerializeField] Text saveText;
     bool _activated = false;
     Enemy[] enemy;
 
     public override void Enter()
     {
-        updateLevelText();
         gameManager = FindObjectOfType<GameManager>();
+        playerprop = FindObjectOfType<PlayerProperty>();
+        loadLevel();
+        updateLevelText();
         setupEnemies();
         CreateDeckBackend();
         ShuffleDeckBackend();
@@ -50,6 +53,25 @@ public class SetupBattleGameState : BattleState
             {
                 e.Respawn();
             }
+        }
+    }
+
+    void loadLevel()
+    {
+        saveManager = FindObjectOfType<SaveManager>();
+        playerprop = FindObjectOfType<PlayerProperty>();
+
+        if(saveManager.currentHealth == 0)
+        {
+            playerprop.defaultplayerAttr();
+        }
+        else
+        {
+            playerprop._health = saveManager.currentHealth;
+            playerprop._manaPool = saveManager.currentMana - 1;
+            playerprop._armor = saveManager.currentArmor;
+            playerprop._attackboostVal = saveManager.currentAttack;
+            playerprop.reloadhud();
         }
     }
 

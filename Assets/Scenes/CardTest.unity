@@ -5437,7 +5437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &343226161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9632,7 +9632,7 @@ GameObject:
   - component: {fileID: 648689546}
   - component: {fileID: 648689545}
   m_Layer: 5
-  m_Name: Exit Button
+  m_Name: Menu Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9703,8 +9703,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1346706827}
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: e7339bbf46a83c9478acde93888a069f,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 550771381}
-        m_MethodName: mainMenu
+        m_MethodName: saveGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9714,13 +9726,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1346706827}
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+      - m_Target: {fileID: 550771381}
+        m_MethodName: mainMenu
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: e7339bbf46a83c9478acde93888a069f,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13473,7 +13484,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833e7e975f35d404ba32cb2b7250a8df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentLevel: 0
+  CurrentLevel: 0
+  Health: 0
+  Mana: 0
+  Armor: 0
+  Attack: 0
 --- !u!4 &938553404
 Transform:
   m_ObjectHideFlags: 0
@@ -17409,7 +17424,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1307291645
 RectTransform:
   m_ObjectHideFlags: 0

@@ -35,10 +35,12 @@ public class PlayerProperty : Health
 
     public bool _isDead { get => isDead; }
     public int _mana { get => mana; set => mana = value; }
+    public int _manaPool { get => currentMana; set => currentMana = value; }
     public int _armor { get => armor; set => armor = value; }
     public int _attackboostVal { get => attackboostVal; set => attackboostVal = value; }
     public int _turn { get => turn; set => turn = value; }
     public int _remaining { get => remaining; set => remaining = value; }
+
     private void Awake()
     {
         remaining = 3;
@@ -197,4 +199,23 @@ public class PlayerProperty : Health
         gamecontroller.DeathMenu();
     }
 
+    public void reloadhud()
+    {
+        playerhud.updateHealthBar();
+        playerhud.updateManaBar();
+        playerhud.updateArmorBar();
+        playerhud.updateAttack();
+    }
+
+    public void defaultplayerAttr()
+    {
+        _health = 300;
+        _mana = 1;
+        _armor = 0;
+        _attackboostVal = 0;
+        playerhud.updateHealthBar();
+        playerhud.updateManaBar();
+        playerhud.updateArmorBar();
+        playerhud.updateAttack();
+    }
 }

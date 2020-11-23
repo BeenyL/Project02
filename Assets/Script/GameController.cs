@@ -65,7 +65,7 @@ public class GameController : MonoBehaviour
     {
         savemanager = FindObjectOfType<SaveManager>();
         savemanager.currentLevel++;
-        Save.SaveGame(savemanager);
+        Save.SaveGame(savemanager, playerprop);
         MenuPanel.color = MenuColor;
         for (int i = 0; i < 3; i++)
         {
@@ -81,7 +81,9 @@ public class GameController : MonoBehaviour
     public void RestartGame()
     {
         savemanager = FindObjectOfType<SaveManager>();
+        playerprop = FindObjectOfType<PlayerProperty>();
         savemanager.currentLevel = 0;
+        playerprop.defaultplayerAttr();
         SceneManager.LoadScene(1);
     }
 
